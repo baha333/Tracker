@@ -23,6 +23,10 @@ final class TrackerViewController: UIViewController, UICollectionViewDataSource,
         return collectionView
     }()
     
+    private let trackerStore = TrackerStore()
+    private let trackerCategoryStore = TrackerCategoryStore()
+    private let trackerRecordStore = TrackerRecordStore()
+    
     private var label = UILabel()
     private var navigationBar: UINavigationBar?
     private let datePicker = UIDatePicker()
@@ -34,6 +38,19 @@ final class TrackerViewController: UIViewController, UICollectionViewDataSource,
         
         initCollection()
         setUpNavigationBar()
+        
+        trackerStore.delegate = self
+        trackerRecordStore.delegate = self
+        
+        createNewCategory()
+        
+        categories = trackerCategoryStore.categories
+        completedTrackers = trackerRecordStore.completedTrackers
+        updateCollectionAccordingToDate()
+    }
+    
+    private func createNewCategory() {
+        try! trackerCategoryStore.addNewCategory(name: "Важное")
     }
     
     // MARK: - Data Source
@@ -225,16 +242,11 @@ extension TrackerViewController: TrackerCounterDelegate {
     }
     
     func increaseTrackerCounter(trackerId: UUID, date: Date) {
-        completedTrackers.append(TrackerRecord(id: trackerId, date: date))
+        try! trackerRecordStore.addRecord(trackerId: trackerId, date: date)
     }
     
     func decreaseTrackerCounter(trackerId: UUID, date: Date) {
-        completedTrackers = completedTrackers.filter {
-            if $0.id == trackerId && Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .day) {
-                return false
-            }
-            return true
-        }
+        try! trackerRecordStore.deleteRecord(trackerId: trackerId, date: date)
     }
 }
 
@@ -275,25 +287,23 @@ extension TrackerViewController: UISearchBarDelegate {
 
 extension TrackerViewController: TrackerCreationDelegate {
     func createTracker(tracker: Tracker, category: String) {
-        let categoryFound = categories.filter{
-            $0.title == category
-        }
-        
-        var trackers: [Tracker] = []
-        if categoryFound.count > 0 {
-            categoryFound.forEach{
-                trackers = trackers + $0.trackers
-            }
-            trackers.append(tracker)
-            categories = categories.filter{
-                $0.title != category
-            }
-            if !trackers.isEmpty {
-                categories.append(TrackerCategory(title: category, trackers: trackers))
-            }
-        } else {
-            categories.append(TrackerCategory(title: category, trackers: [tracker]))
-        }
+        try! trackerStore.addNewTracker(tracker: tracker, forCategory: category)
+    }
+}
+
+// MARK: - TrackerStoreDelegate
+
+extension TrackerViewController: TrackerStoreDelegate {
+    func store(insertedIndexes: [IndexPath], deletedIndexes: IndexSet) {
+        categories = trackerCategoryStore.categories
         updateCollectionAccordingToDate()
+    }
+}
+
+// MARK: - TrackerRecordStoreDelegate
+
+extension TrackerViewController: TrackerRecordStoreDelegate {
+    func recordUpdated() {
+        completedTrackers = trackerRecordStore.completedTrackers
     }
 }

@@ -18,7 +18,7 @@ protocol ShowScheduleDelegate: AnyObject {
 }
 
 protocol ShowCategoriesDelegate: AnyObject {
-    func showCategoriesViewController()
+    func showCategoriesViewController(viewController: CategoryViewController)
 }
 
 final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
@@ -53,7 +53,6 @@ final class ButtonsCell: UICollectionViewCell, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
-            categoriesDelegate?.showCategoriesViewController()
         } else if indexPath.row == 1 {
             scheduleDelegate?.showScheduleViewController(viewController: ScheduleViewController())
         }
