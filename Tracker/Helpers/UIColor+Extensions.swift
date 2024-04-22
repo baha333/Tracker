@@ -5,15 +5,17 @@
 //  Created by Bakhadir on 15.03.2024.
 //
 
-import Foundation
 import UIKit
 
 extension UIColor {
     static var ypBlack: UIColor { UIColor(named: "YP Black") ?? UIColor.black}
-    static var ypRed: UIColor { UIColor(named: "YP Red") ?? UIColor.black}
-    static var ypBlue: UIColor { UIColor(named: "YP Blue") ?? UIColor.black}
-    static var ypLightGray: UIColor { UIColor(named: "YP Gray") ?? UIColor.black}
-    static var ypGray: UIColor { UIColor(named: "YP Dark Gray") ?? UIColor.black}
+    static var ypRed: UIColor { UIColor(named: "YP Red") ?? UIColor.red}
+    static var ypBlue: UIColor { UIColor(named: "YP Blue") ?? UIColor.blue}
+    static var ypLightGray: UIColor { UIColor(named: "YP Gray") ?? UIColor.lightGray}
+    static var ypGray: UIColor { UIColor(named: "YP Dark Gray") ?? UIColor.gray}
+    static var ypBackground: UIColor { UIColor(named: "YP Background") ?? UIColor.darkGray}
+    static var ypWhite: UIColor { UIColor(named: "YP White") ?? UIColor.white}
+    static var ypBackgroundDate: UIColor { UIColor(named: "YP BackgroundDate") ?? UIColor.lightGray}
     
     static var color1: UIColor { UIColor(named: "Red") ?? UIColor.red}
     static var color2: UIColor { UIColor(named: "Orange") ?? UIColor.orange}

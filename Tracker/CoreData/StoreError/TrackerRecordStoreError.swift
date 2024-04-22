@@ -8,6 +8,6 @@
 import Foundation
 
 enum TrackerRecordStoreError: Error {
-    case decodingTrackerRecordError
-    case fetchTrackerRecordError
+    case failedToFetchTracker
+    case failedToFetchRecord
 }

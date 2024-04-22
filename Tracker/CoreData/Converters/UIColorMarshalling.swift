@@ -5,7 +5,6 @@
 //  Created by Bakhadir on 08.04.2024.
 //
 
-import Foundation
 import UIKit
 
 final class UIColorMarshalling {
@@ -15,7 +14,7 @@ final class UIColorMarshalling {
         let g: CGFloat = components?[1] ?? 0.0
         let b: CGFloat = components?[2] ?? 0.0
         return String.init(
-            format: "%021X%021X%021X",
+            format: "%02lX%02lX%02lX",
             lroundf(Float(r * 255)),
             lroundf(Float(g * 255)),
             lroundf(Float(b * 255))
@@ -23,7 +22,7 @@ final class UIColorMarshalling {
     }
     
     func color(from hex: String) -> UIColor {
-        var rgbValue: UInt64 = 0
+        var rgbValue:UInt64 = 0
         Scanner(string: hex).scanHexInt64(&rgbValue)
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,

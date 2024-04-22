@@ -12,32 +12,35 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow()
+        window?.rootViewController = TabBarController()
+        window?.makeKeyAndVisible()
+        return true
+    }
+    
+    // MARK: - Core Data
+    
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "TrackerCoreData")
+        let container = NSPersistentContainer(name: "Tracker")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Код для обработки ошибки
+                assertionFailure("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
     }()
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        return true
-    }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        let configuration = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
-        configuration.storyboard = nil
-        configuration.sceneClass = UIWindowScene.self
-        configuration.delegateClass = SceneDelegate.self
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
         
-        return configuration
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let error = error as NSError
+                assertionFailure("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
     }
 }
-

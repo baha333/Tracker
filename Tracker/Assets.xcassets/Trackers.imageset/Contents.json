@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=Done@1x.png",
+      "filename" : "Property 1=trackers@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Property 1=Done@2x.png",
+      "filename" : "Property 1=trackers@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Property 1=Done@3x.png",
+      "filename" : "Property 1=trackers@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

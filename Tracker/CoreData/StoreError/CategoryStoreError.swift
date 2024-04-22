@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum CategoryStoreError: Error {
-    case decodingTitleError
-    case decodingTrackersError
-    case fetchingCategoryError
+enum TrackerCategoryStoreError: Error {
+    case decodingErrorInvalidTitle
+    case decodingErrorInvalidTrackers
+    case failedToInitializeTracker
+    case failedToFetchCategory
 }

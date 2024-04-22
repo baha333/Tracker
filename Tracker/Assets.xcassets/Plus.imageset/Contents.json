@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=Done@1x.png",
+      "filename" : "Button 34x34plus.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Property 1=Done@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Property 1=Done@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
