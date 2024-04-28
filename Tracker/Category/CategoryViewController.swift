@@ -13,11 +13,9 @@ protocol CategoryViewControllerDelegate {
 
 final class CategoryViewController: UIViewController {
     
+    // MARK: - Properties
     var delegate: CategoryViewControllerDelegate?
-    
-    private let trackerCategoryStore: TrackerCategoryStoreProtocol = TrackerCategoryStore.shared
-    
-    // MARK: - Private Properties
+    var viewModel: CategoryViewModel
     
     private lazy var emptyScreenImage: UIImageView = {
         let launchScreenImage = UIImageView()
@@ -65,24 +63,11 @@ final class CategoryViewController: UIViewController {
         return tableView
     }()
     
-    private var trackerCategories: [TrackerCategory] = []
-    private var selectedCategoryIndex = -1
-    
     // MARK: - UIViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        trackerCategoryStore.setDelegate(self)
-        
-        do {
-            trackerCategories = try trackerCategoryStore.getCategories()
-        } catch {
-            print("Get categories failed")
-        }
-        
         view.backgroundColor = .ypWhite
-        
         setupNavBar()
         addViews()
         setupConstraints()
@@ -90,6 +75,30 @@ final class CategoryViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        viewModel.onTrackerCategoriesChanged = { [weak self] trackerCategories in
+            self?.tableView.reloadData()
+            self?.updateEmptyStateVisibility()
+        }
+        
+        viewModel.onCategorySelected = { [weak self] category in
+            self?.tableView.reloadData()
+            
+            self?.delegate?.didSelectCategory(category)
+            self?.navigationController?.popViewController(animated: true)
+        }
+        try? viewModel.fetchCategories()
+    }
+    
+    // MARK: - Init
+    
+    init() {
+        viewModel = CategoryViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Actions
@@ -153,23 +162,10 @@ final class CategoryViewController: UIViewController {
     }
     
     private func updateEmptyStateVisibility() {
-        if trackerCategories.isEmpty {
+        if viewModel.trackerCategories.isEmpty {
             showEmptyStateImage()
         } else {
             hideEmptyStateImage()
-        }
-    }
-}
-
-// MARK: - NewCategoryViewControllerDelegate
-extension CategoryViewController: TrackerCategoryStoreDelegate {
-    func didUpdate(_ update: TrackerCategoryStoreUpdate) {
-        do {
-            trackerCategories = try trackerCategoryStore.getCategories()
-            updateEmptyStateVisibility()
-            tableView.reloadData()
-        } catch {
-            print("Update failed")
         }
     }
 }
@@ -178,7 +174,7 @@ extension CategoryViewController: TrackerCategoryStoreDelegate {
 
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trackerCategories.count
+        viewModel.countCategories()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -186,13 +182,13 @@ extension CategoryViewController: UITableViewDataSource {
         guard cell is CategoryTableViewCell else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = trackerCategories[indexPath.row].title
+        cell.textLabel?.text = viewModel.getCategoryTitle(at: indexPath)
         cell.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
         cell.separatorInset = UIEdgeInsets( top: 0, left: 16, bottom: 0, right: 16 )
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 16.0
         
-        if trackerCategories.count == 1 {
+        if viewModel.countCategories() == 1 {
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         } else {
             let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
@@ -205,7 +201,7 @@ extension CategoryViewController: UITableViewDataSource {
             }
         }
         
-        if indexPath.row == selectedCategoryIndex {
+        if indexPath.row == viewModel.selectedCategoryIndex {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -222,12 +218,7 @@ extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        selectedCategoryIndex = indexPath.row
-        tableView.reloadData()
-        
-        let selectedCategory = trackerCategories[indexPath.row]
-        delegate?.didSelectCategory(selectedCategory)
-        navigationController?.popViewController(animated: true)
+        viewModel.selectCategory(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

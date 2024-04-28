@@ -23,6 +23,10 @@
 		AC2E4D4F2BD5446200FF042A /* ConfigureTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E4D4E2BD5446200FF042A /* ConfigureTrackerViewController.swift */; };
 		AC2E4D512BD5448700FF042A /* ActivityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E4D502BD5448700FF042A /* ActivityTableCell.swift */; };
 		AC2E4D532BD544B100FF042A /* CollectionViewParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E4D522BD544B100FF042A /* CollectionViewParameters.swift */; };
+		AC6C2CF22BDE5FC600992085 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6C2CF12BDE5FC600992085 /* AppPreferences.swift */; };
+		AC6C2CF52BDE627600992085 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6C2CF42BDE627600992085 /* OnboardingViewController.swift */; };
+		AC6C2CF72BDE694700992085 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6C2CF62BDE694700992085 /* OnboardingPageViewController.swift */; };
+		AC6C2CFB2BDE735600992085 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6C2CFA2BDE735600992085 /* CategoryViewModel.swift */; };
 		ACFA92DC2BA21691006344BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DB2BA21691006344BA /* AppDelegate.swift */; };
 		ACFA92DE2BA21691006344BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DD2BA21691006344BA /* SceneDelegate.swift */; };
 		ACFA92E02BA21691006344BA /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DF2BA21691006344BA /* TrackerViewController.swift */; };
@@ -59,6 +63,10 @@
 		AC2E4D4E2BD5446200FF042A /* ConfigureTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTrackerViewController.swift; sourceTree = "<group>"; };
 		AC2E4D502BD5448700FF042A /* ActivityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableCell.swift; sourceTree = "<group>"; };
 		AC2E4D522BD544B100FF042A /* CollectionViewParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewParameters.swift; sourceTree = "<group>"; };
+		AC6C2CF12BDE5FC600992085 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		AC6C2CF42BDE627600992085 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		AC6C2CF62BDE694700992085 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		AC6C2CFA2BDE735600992085 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		ACFA92D82BA21691006344BA /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACFA92DB2BA21691006344BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACFA92DD2BA21691006344BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +117,7 @@
 				AC2E4D2C2BC3E44300FF042A /* CategoryViewController.swift */,
 				AC2E4D2E2BC3E8FC00FF042A /* CategoryCell.swift */,
 				AC2E4D3C2BCD282500FF042A /* NewCategoryViewController.swift */,
+				AC6C2CFA2BDE735600992085 /* CategoryViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -176,6 +185,23 @@
 			path = EmojisAndColors;
 			sourceTree = "<group>";
 		};
+		AC6C2CF02BDE5FA100992085 /* Prefrences */ = {
+			isa = PBXGroup;
+			children = (
+				AC6C2CF12BDE5FC600992085 /* AppPreferences.swift */,
+			);
+			path = Prefrences;
+			sourceTree = "<group>";
+		};
+		AC6C2CF32BDE625000992085 /* OnboardingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				AC6C2CF42BDE627600992085 /* OnboardingViewController.swift */,
+				AC6C2CF62BDE694700992085 /* OnboardingPageViewController.swift */,
+			);
+			path = OnboardingScreen;
+			sourceTree = "<group>";
+		};
 		ACFA92CF2BA21691006344BA = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +221,8 @@
 		ACFA92DA2BA21691006344BA /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				AC6C2CF32BDE625000992085 /* OnboardingScreen */,
+				AC6C2CF02BDE5FA100992085 /* Prefrences */,
 				AC2E4D462BD5437900FF042A /* NewTracker */,
 				AC2E4D3F2BD1099A00FF042A /* Statistics */,
 				AC2E4D3E2BD1067C00FF042A /* TabBar */,
@@ -316,10 +344,12 @@
 			files = (
 				ACFA93182BA4A027006344BA /* TrackerCategory.swift in Sources */,
 				AC2E4D2F2BC3E8FC00FF042A /* CategoryCell.swift in Sources */,
+				AC6C2CF22BDE5FC600992085 /* AppPreferences.swift in Sources */,
 				AC2E4D512BD5448700FF042A /* ActivityTableCell.swift in Sources */,
 				AC2E4D0B2BB1EA4300FF042A /* Tracker.xcdatamodeld in Sources */,
 				ACFA93212BA4A2B8006344BA /* UIColor+Extensions.swift in Sources */,
 				ACFA93312BA6EC9A006344BA /* ScheduleViewController.swift in Sources */,
+				AC6C2CFB2BDE735600992085 /* CategoryViewModel.swift in Sources */,
 				ACFA93132BA4948E006344BA /* HeaderSectionView.swift in Sources */,
 				AC2E4D262BBAC78B00FF042A /* TrackerCategoryStore.swift in Sources */,
 				ACFA92E02BA21691006344BA /* TrackerViewController.swift in Sources */,
@@ -337,6 +367,7 @@
 				AC2E4D452BD5408600FF042A /* ScheduleStructure.swift in Sources */,
 				AC2E4D3D2BCD282500FF042A /* NewCategoryViewController.swift in Sources */,
 				AC2E4D4D2BD5442A00FF042A /* AddTrackerViewController.swift in Sources */,
+				AC6C2CF72BDE694700992085 /* OnboardingPageViewController.swift in Sources */,
 				ACFA93292BA59585006344BA /* TabBarController.swift in Sources */,
 				ACFA932E2BA6EA36006344BA /* PlaceHolderView.swift in Sources */,
 				AC2E4D282BBD721700FF042A /* TrackerRecordStore.swift in Sources */,
@@ -344,6 +375,7 @@
 				AC2E4D2D2BC3E44300FF042A /* CategoryViewController.swift in Sources */,
 				ACFA92DE2BA21691006344BA /* SceneDelegate.swift in Sources */,
 				AC2E4D432BD53D9F00FF042A /* EmptySearchPlaceholderView.swift in Sources */,
+				AC6C2CF52BDE627600992085 /* OnboardingViewController.swift in Sources */,
 				ACFA93332BA6F297006344BA /* ScheduleTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
