@@ -14,7 +14,7 @@ protocol AddTrackerViewControllerDelegate: AnyObject {
 final class AddTrackerViewController: UIViewController {
     
     var screenTitle: String = ""
-    var delegate: AddTrackerViewControllerDelegate?
+    weak var delegate: AddTrackerViewControllerDelegate?
         
     //MARK: - Private Properties
 

@@ -63,5 +63,5 @@ extension CategoryViewModel: TrackerCategoryStoreDelegate {
     func didUpdate(_ update: TrackerCategoryStoreUpdate) {
         try? fetchCategories()
     }
-}
+} 
 
