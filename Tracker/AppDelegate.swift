@@ -14,12 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
-        let onboardingViewController = OnboardingViewController()
-        onboardingViewController.onboardingCompletionHandler = { [weak self] in
-            let tabBarController = TabBarController()
-            self?.window?.rootViewController = tabBarController
-        }
-        window?.rootViewController = onboardingViewController
+        window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
         return true
     }
