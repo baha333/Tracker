@@ -12,6 +12,7 @@ class HeaderSectionView: UICollectionReusableView {
     static let identifier = "headerCellIdentifier"
     
     //MARK: - Private Properties
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .ypBlack
@@ -23,6 +24,7 @@ class HeaderSectionView: UICollectionReusableView {
     }()
     
     //MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(titleLabel)

@@ -42,7 +42,7 @@ final class ScheduleViewController: UIViewController {
         button.backgroundColor = .ypBlack
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(NSLocalizedString("doneButton.text", comment: ""), for: .normal)
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
@@ -67,13 +67,13 @@ final class ScheduleViewController: UIViewController {
         switchStatus()
         delegate?.updateScheduleInfo(selectedSchedule, switchStates)
         navigationController?.popViewController(animated: true)
-        print("Выбрано расписание")
+        print("Scheduled")
     }
     
     // MARK: - Private Functions
     
     private func setupNavBar(){
-        navigationItem.title = "Расписание"
+        navigationItem.title = NSLocalizedString("schedule.title", comment: "")
     }
     
     private func setupView() {
