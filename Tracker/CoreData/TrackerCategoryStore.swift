@@ -1,13 +1,5 @@
-//
-//  TrackerCategoryStore.swift
-//  Tracker
-//
-//  Created by Bakhadir on 01.04.2024.
-//
-
 import UIKit
 import CoreData
-
 
 struct TrackerCategoryStoreUpdate {
     let insertedIndexPaths: [IndexPath]
@@ -21,7 +13,6 @@ private enum TrackerCategoryStoreError: Error {
     case failedToFetchCategory
 }
 
-
 // MARK: - Protocols
 
 protocol TrackerCategoryStoreDelegate: AnyObject {
@@ -29,10 +20,14 @@ protocol TrackerCategoryStoreDelegate: AnyObject {
 }
 
 protocol TrackerCategoryStoreProtocol {
+    var trackerCategory: [TrackerCategory] { get }
+    
     func setDelegate(_ delegate: TrackerCategoryStoreDelegate)
     func getCategories() throws -> [TrackerCategory]
     func fetchCategoryCoreData(for category: TrackerCategory) throws -> TrackerCategoryCoreData
     func addCategory(_ category: TrackerCategory) throws
+    func fetchAllCategories() throws -> [TrackerCategoryCoreData]
+    func convertToTrackerCategory(from trackerCategoryCoreData: TrackerCategoryCoreData) throws -> TrackerCategory
 }
 
 // MARK: - TrackerCategoryStore
@@ -41,7 +36,7 @@ final class TrackerCategoryStore: NSObject {
     
     static let shared = TrackerCategoryStore()
     
-    weak var delegate: TrackerCategoryStoreDelegate?
+    private weak var delegate: TrackerCategoryStoreDelegate?
     
     // MARK: - Private properties
     
@@ -95,22 +90,6 @@ final class TrackerCategoryStore: NSObject {
             context.rollback()
             throw error
         }
-    }
-    
-    private func convertToTrackerCategory(from trackerCategoryCoreData: TrackerCategoryCoreData) throws -> TrackerCategory {
-        guard let title = trackerCategoryCoreData.title else {
-            throw TrackerCategoryStoreError.decodingErrorInvalidTitle
-        }
-        guard let trackersSet = trackerCategoryCoreData.trackers as? Set<TrackerCoreData> else {
-            throw TrackerCategoryStoreError.decodingErrorInvalidTrackers
-        }
-        let trackerList = try trackersSet.compactMap { trackerCoreData -> Tracker in
-            guard let tracker = try? trackerStore.fetchTracker(trackerCoreData) else {
-                throw TrackerCategoryStoreError.failedToInitializeTracker
-            }
-            return tracker
-        }
-        return TrackerCategory(title: title, trackers: trackerList)
     }
     
     private func fetchCategories() throws -> [TrackerCategory] {
@@ -194,6 +173,15 @@ extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
 
 extension TrackerCategoryStore: TrackerCategoryStoreProtocol {
     
+    var trackerCategory: [TrackerCategory] {
+        guard
+            let objects = self.fetchedResultsController.fetchedObjects,
+            let trackerCategory = try? objects.map({ try self.convertToTrackerCategory(from: $0) })
+        else { return [] }
+        
+        return trackerCategory
+    }
+    
     func setDelegate(_ delegate: TrackerCategoryStoreDelegate) {
         self.delegate = delegate
     }
@@ -209,5 +197,24 @@ extension TrackerCategoryStore: TrackerCategoryStoreProtocol {
     func addCategory(_ category: TrackerCategory) throws {
         try addNewCategory(category)
     }
+    
+    func fetchAllCategories() throws -> [TrackerCategoryCoreData] {
+        return try context.fetch(NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData"))
+    }
+    
+    func convertToTrackerCategory(from trackerCategoryCoreData: TrackerCategoryCoreData) throws -> TrackerCategory {
+        guard let title = trackerCategoryCoreData.title else {
+            throw TrackerCategoryStoreError.decodingErrorInvalidTitle
+        }
+        guard let trackersSet = trackerCategoryCoreData.trackers as? Set<TrackerCoreData> else {
+            throw TrackerCategoryStoreError.decodingErrorInvalidTrackers
+        }
+        let trackerList = try trackerStore.compactMap { TrackerCoreData -> Tracker in
+            guard let tracker = try? trackerStore.fetchTracker(trackerCoreData) else {
+                throw TrackerCategoryStoreError.failedToInitializeTracker
+            }
+            return tracker
+        }
+        return TrackerCategory(title: title, trackers: trackerList)
+    }
 }
-

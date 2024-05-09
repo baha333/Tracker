@@ -1,10 +1,3 @@
-//
-//  StatisticsViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 16.03.2024.
-//
-
 import UIKit
 
 struct Statistics {
@@ -42,7 +35,6 @@ final class StatisticsViewController: UIViewController {
     }()
     
     private let emptyStatisticsPlaceholderView = EmptyStatisticsPlaceholderView()
-    
     
     //MARK: - Lifecycle
     

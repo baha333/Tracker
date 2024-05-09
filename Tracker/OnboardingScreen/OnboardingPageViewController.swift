@@ -1,10 +1,3 @@
-//
-//  OnboardingPageViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 28.04.2024.
-//
-
 import UIKit
 
 class OnboardingPageViewController: UIViewController {
@@ -21,7 +14,7 @@ class OnboardingPageViewController: UIViewController {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = .ypBlack
+        label.textColor = .BlackAnyAppearance
         label.font = .systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

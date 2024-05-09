@@ -1,10 +1,3 @@
-//
-//  TrackerRecordStore.swift
-//  Tracker
-//
-//  Created by Bakhadir on 03.04.2024.
-//
-
 import UIKit
 import CoreData
 
@@ -19,6 +12,13 @@ protocol TrackerRecordStoreProtocol {
     func recordsFetch(for tracker: Tracker) throws -> [TrackerRecord]
     func addRecord(with id: UUID, by date: Date) throws
     func deleteRecord(with id: UUID, by date: Date) throws
+    func deleteAllRecordForID(for id: UUID) throws
+}
+
+// MARK: - TrackerRecordStoreDelegate
+
+protocol TrackerRecordStoreDelegate: AnyObject {
+    func didUpdateData(in store: TrackerRecordStore)
 }
 
 // MARK: - TrackerRecordStore
@@ -26,6 +26,8 @@ protocol TrackerRecordStoreProtocol {
 final class TrackerRecordStore: NSObject {
     
     static let shared = TrackerRecordStore()
+    
+    weak var delegate: TrackerRecordStoreDelegate?
     
     // MARK: - Private Properties
     
@@ -44,9 +46,9 @@ final class TrackerRecordStore: NSObject {
         super.init()
     }
     
-    // MARK: - Private functions
+    // MARK: - Functions
     
-    private func fetchRecords(_ tracker: Tracker) throws -> [TrackerRecord] {
+    func fetchRecords(_ tracker: Tracker) throws -> [TrackerRecord] {
         let request = TrackerRecordCoreData.fetchRequest()
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(
@@ -59,6 +61,46 @@ final class TrackerRecordStore: NSObject {
             return TrackerRecord(trackerID: id, date: date)
         }
         return records
+    }
+    
+    func fetchRecordsByTrackerId(_ trackerId: UUID) throws -> [TrackerRecord] {
+        let request = TrackerRecordCoreData.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K = %@",
+            #keyPath(TrackerRecordCoreData.trackerID), trackerId as CVarArg
+        )
+        let objects = try context.fetch(request)
+        let records = objects.compactMap { object -> TrackerRecod? in
+            guard let date = object.date, let id = object.trackerID else { return nil }
+            return TrackerRecord(trackerID: id, date: date)
+        }
+        return records
+    }
+    
+    func fetchAllRecords() throws -> [TrackerRecord] {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            print("fetchAllRecords error")
+            
+            return []
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        do {
+            let trackerRecordCoreDataArray = try managedContext.fetch(fetchRequest)
+            let trackerRecords = trackerRecordCoreDataArray.map { trackerRecordCoreData in
+                return TrackerRecord(
+                    trackerID: trackerRecordCoreData.trackerID ?? UUID(),
+                    date: trackerRecordCoreData.date ?? Date()
+                )
+            }
+            return trackerRecords
+            
+        } catch {
+            print("fetchAllRecords error")
+            
+            return []
+        }
     }
     
     private func fetchTrackerCoreData(for id: UUID) throws -> TrackerCoreData? {
@@ -119,10 +161,35 @@ extension TrackerRecordStore: TrackerRecordStoreProtocol {
     }
     
     func addRecord(with id: UUID, by date: Date) throws {
-        try createNewRecord(id: id, date: date)
+        guard let onlyDate = date.onlyDate else {
+            print("Failed: addRecord")
+            return
+        }
+        try createNewRecord(id: id, date: onlyDate)
     }
     
     func deleteRecord(with id: UUID, by date: Date) throws {
-        try removeRecord(idTracker: id, date: date)
+        guard let onlyDate = date.onlyDate else {
+            print("Failed: deleteRecord")
+            return
+        }
+        try removeRecord(idTracker: id, date: onlyDate)
+    }
+    
+    func deleteAllRecordForID(for id: UUID) throws {
+        let request = TrackerRecordCoreData.fetchRequest()
+        request.predicate = NSPredicate(format: "trackerID == %@", id as CVarArg)
+        guard let trackersRecords = try? context.fetch(request) else { return }
+        trackersRecords.forEach {
+            context.delete($0)
+        }
+        try context.save()
+    }
+}
+
+//MARK: - NSFetchedResultsControllerDelegate
+extension TrackerRecordStore: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        delegate?.didUpdateData(in: self)
     }
 }

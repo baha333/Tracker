@@ -1,10 +1,3 @@
-//
-//  AppPreferences.swift
-//  Tracker
-//
-//  Created by Bakhadir on 28.04.2024.
-//
-
 import Foundation
 
 protocol AppPreferencesProtocol {

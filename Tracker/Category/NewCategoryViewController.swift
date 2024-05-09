@@ -1,10 +1,3 @@
-//
-//  NewCategoryViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 15.04.2024.
-//
-
 import UIKit
 
 // MARK: - TypeOfCategory

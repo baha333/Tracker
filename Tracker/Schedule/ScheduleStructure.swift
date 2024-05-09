@@ -1,10 +1,3 @@
-//
-//  ScheduleStructure.swift
-//  Tracker
-//
-//  Created by Bakhadir on 21.04.2024.
-//
-
 import Foundation
 
 struct Schedule {

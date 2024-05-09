@@ -1,10 +1,3 @@
-//
-//  ScheduleViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 17.03.2024.
-//
-
 import UIKit
 
 // MARK: - Delegate

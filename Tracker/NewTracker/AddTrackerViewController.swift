@@ -1,10 +1,3 @@
-//
-//  AddTrackerViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 21.04.2024.
-//
-
 import UIKit
 
 protocol AddTrackerViewControllerDelegate: AnyObject {
@@ -24,7 +17,7 @@ final class AddTrackerViewController: UIViewController {
         button.backgroundColor = .ypBlack
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.setTitle("Привычка", for: .normal)
+        button.setTitle(NSLocalizedString("habitButton.text", comment: ""), for: .normal)
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return button
@@ -36,7 +29,7 @@ final class AddTrackerViewController: UIViewController {
         button.backgroundColor = .ypBlack
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.setTitle("Нерегулярные событие", for: .normal)
+        button.setTitle(NSLocalizedString("irregularButton.text", comment: ""), for: .normal)
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return button
@@ -65,7 +58,7 @@ final class AddTrackerViewController: UIViewController {
    
        @objc private func habitButtonClicked() {
            let configureTrackerViewController = ConfigureTrackerViewController()
-           configureTrackerViewController.isRepeat = true
+           configureTrackerViewController.typeOfTracker = .habit
            configureTrackerViewController.delegate = self
            let navigationController = UINavigationController(rootViewController: configureTrackerViewController)
            present(navigationController, animated: true)
@@ -73,7 +66,7 @@ final class AddTrackerViewController: UIViewController {
    
        @objc private func irregularButtonClicked() {
            let configureTrackerViewController = ConfigureTrackerViewController()
-           configureTrackerViewController.isRepeat = false
+           configureTrackerViewController.typeOfTracker = .irregularEvent
            configureTrackerViewController.delegate = self
            let navigationController = UINavigationController(rootViewController: configureTrackerViewController)
            present(navigationController, animated: true)
@@ -82,7 +75,7 @@ final class AddTrackerViewController: UIViewController {
     //MARK: - Private Functions
    
        private func setupNavBar(){
-           navigationItem.title = "Создание трека"
+           navigationItem.title = NSLocalizedString("addTracker.title", comment: "")
        }
    
        private func setupButtons() {
@@ -108,6 +101,9 @@ final class AddTrackerViewController: UIViewController {
 //MARK: - ConfigureTrackerViewControllerDelegate
 
 extension AddTrackerViewController: ConfigureTrackerViewControllerDelegate {
+    func updateTracker(tracker: Tracker, to category: TrackerCategory) {
+        
+    }
     func trackerDidSaved() {
         dismiss(animated: true, completion: { self.delegate?.trackerDidCreate() })
     }

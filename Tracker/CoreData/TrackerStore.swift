@@ -1,10 +1,3 @@
-//
-//  TrackerStore.swift
-//  Tracker
-//
-//  Created by Bakhadir on 29.03.2024.
-//
-
 import UIKit
 import CoreData
 
@@ -26,9 +19,12 @@ protocol TrackerStoreDelegate: AnyObject {
 }
 
 protocol TrackerStoreProtocol {
+    func pinTrackerCoreData(_ tracker: Tracker) throws
     func setDelegate(_ delegate: TrackerStoreDelegate)
     func fetchTracker(_ trackerCoreData: TrackerCoreData) throws -> Tracker
     func addTracker(_ tracker: Tracker, toCategory category: TrackerCategory) throws
+    func deleteTrackers(tracker: Tracker)
+    func updateTracker(_ tracker: Tracker, to category: TrackerCategory) throws
 }
 
 // MARK: - TrackerStore
@@ -96,6 +92,7 @@ final class TrackerStore: NSObject {
             throw TrackerStoreError.decodingErrorInvalidID
         }
         
+        let isPinned = trackerCoreData.isPinned
         let color = uiColorMarshalling.color(from: colorString)
         let schedule = Weekday.calculateScheduleArray(from: trackerCoreData.schedule)
         
@@ -105,6 +102,7 @@ final class TrackerStore: NSObject {
             color: color,
             emoji: emoji,
             schedule: schedule
+            isPinned: isPinned
         )
     }
     
@@ -132,6 +130,21 @@ final class TrackerStore: NSObject {
         }
     }
     
+    func updateTracker(_ tracker: Tracker, to category: TrackerCategory) throws {
+        let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        fetchRequest.predicate = NSPredicate(format: "idTracker == %@", tracker.id as CVarArg)
+        do {
+            let existingTracker = existingTrackers.first {
+                existingTracker.idTracker = tracker.id
+                existingTracker.title = tracker.title
+                existingTracker.color = uiColorMarshalling.hexString(from: tracker.color)
+                existingTracker.emoji = tracker.emoji
+                existingTracker.schedule = Weekday.calculateScheduleValue(for: tracker.schedule)
+                existingTracker.isPinned = tracker.isPinned
+                try saveContext()
+            }
+        }
+    }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -188,5 +201,44 @@ extension TrackerStore: TrackerStoreProtocol {
     
     func addTracker(_ tracker: Tracker, toCategory category: TrackerCategory) throws {
         try addTracker(tracker, to: category)
+    }
+    
+    func updateTracker(_ tracker: Tracker, to category: TrackerCategory) throws {
+        try updateTracker(with: tracker, to: category)
+    }
+    
+    func pinTrackerCoreData(_ tracker: Tracker) throws {
+        let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        fetchRequest.predicate = NSPredicate(format: "idTracker == %@", tracker.id as CVarArg)
+        do {
+            guard let trackerCoreData = try? context.fetch(fetchRequest) else { return }
+            if let trackerToPin = trackerCoreData.first {
+                if trackerToPin.isPinned == false {
+                    trackerToPin.isPinned = true
+                } else if trackerToPin.isPinned == true {
+                    trackerToPin.isPinned = false
+                }
+                try context.save()
+            }
+        } catch {
+            print("Pin tracker Failed")
+        }
+    }
+    
+    func deleteTrackers(tracker: Tracker) {
+        let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        fetchRequest.predicate = NSPredicate(format: "idTracker == %@", tracker.id as CVarArg)
+        do {
+            let tracker = try context.fetch(fetchRequest)
+            
+            if let trackerToDelete = tracker.first {
+                context.delete(trackerToDelete)
+                try context.save()
+            } else {
+                print("Delete tracker error")
+            }
+        } catch {
+            print("Delete tracker error")
+        }
     }
 }

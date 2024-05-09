@@ -1,0 +1,96 @@
+
+// MARK: - OnboardingViewController
+
+"onboardingBlueLabel.title" = "Track only what you want";
+"onboardingRedLabel.title" = "Even if it's not litres of water and yoga";
+"onboardingDoneButton.text" = "These are the technologies!";
+
+// MARK: - TabBarViewController
+
+"tabBarTrackers.title" = "Trackers";
+"tabBarStatistics.title" = "Statistics";
+
+// MARK: - StatisticsViewController
+
+"statistics.title" = "Statistics";
+"emptyStatistics.text" = "There is nothing to analyze yet";
+"getStatisticsCalculation.text" = "Trackers completed";
+
+// MARK: - TrackersViewController
+
+"trackers.title" = "Trackers";
+"searchTextField.placeholder" = "Search";
+"cancelButton.text" = "Cancel";
+"emptyState.text" = "What are we going to track?";
+"emptySearch.text" = "Nothing was found";
+"unpinTracker.text" = "Unpin";
+"pinTracker.text" = "Pin";
+"pinnedTrackers.title" = "Pinned";
+"edit.text" = "Edit";
+"delete.text" = "Delete";
+"filterButton.text" = "Filters";
+"showDeleteAlert.text" = "Are you sure you want delete tracker?";
+
+// MARK: - CategoryViewController
+
+"addCategoryButton.text" = "Add a category";
+"emptyStateCategory.text" = "Habits and events\n can be combined in meaning";
+"category.title" = "Category";
+
+// MARK: - NewCategoryViewController
+
+"newCategoryTextField.placeholder" = "Enter the name of the category";
+"doneButton.text" = "Done";
+"newCategory.title" = "New category";
+
+// MARK: - ScheduleViewController
+
+"schedule.title" = "Schedule";
+
+"Monday" = "Monday";
+"Tuesday" = "Tuesday";
+"Wednesday" = "Wednesday";
+"Thursday" = "Thursday";
+"Friday" = "Friday";
+"Saturday" = "Saturday";
+"Sunday" = "Sunday";
+
+"Mon" = "Mon";
+"Tue" = "Tue";
+"Wed" = "Wed";
+"Thu" = "Thu";
+"Fri" = "Fri";
+"Sat" = "Sat";
+"Sun" = "Sun";
+
+// MARK: - AddTrackerViewController
+
+"addTracker.title" = "Creating a tracker";
+"habitButton.text" = "Habit";
+"irregularButton.text" = "Irregular events";
+
+// MARK: - ConfigureTrackerViewController
+
+"createButton.text" = "Create";
+"save.text" = "Save";
+"newTrackerName.placeholder" = "Enter the name of the tracker";
+"newHabit.title" = "New habit";
+"newIrregular.title" = "New irregular event";
+"editTracker.title" = "Habit editing";
+"everyDay.text" = "Every day";
+"color.title" = "Color";
+
+// MARK: - TrackerCollectionViewCell
+
+"pinAction.title" = "Pin";
+"unpinAction.title" = "Unpin";
+"editAction.title" = "Edit";
+"deleteAction.title" = "Delete";
+
+// MARK: - FiltersViewController
+
+"filters.title" = "Filters";
+"filter.all" = "Все трекеры";
+"filter.today" = "Трекеры на сегодня";
+"filter.completed" = "Завершенные";
+"filter.uncompleted" = "Незавершенные";

@@ -1,10 +1,3 @@
-//
-//  TabBarController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 16.03.2024.
-//
-
 import UIKit
 
 final class TabBarController: UITabBarController {
@@ -19,7 +12,7 @@ final class TabBarController: UITabBarController {
     //MARK: - Private Functions
     private func addSeparator() {
         let separator = UIView(frame: CGRect(x: 0, y: 0, width: tabBar.frame.width, height: 0.5))
-        separator.backgroundColor = .ypGray
+        separator.backgroundColor = .Sepator
         tabBar.addSubview(separator)
     }
     
