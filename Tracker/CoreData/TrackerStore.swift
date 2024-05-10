@@ -10,8 +10,6 @@ private enum TrackerStoreError: Error {
     case decodingErrorInvalidID
 }
 
-
-
 // MARK: - Protocols
 
 protocol TrackerStoreDelegate: AnyObject {
@@ -88,7 +86,8 @@ final class TrackerStore: NSObject {
         guard let id = trackerCoreData.idTracker,
               let title = trackerCoreData.title,
               let colorString = trackerCoreData.color,
-              let emoji = trackerCoreData.emoji else {
+              let emoji = trackerCoreData.emoji
+        else {
             throw TrackerStoreError.decodingErrorInvalidID
         }
         
@@ -101,7 +100,7 @@ final class TrackerStore: NSObject {
             title: title,
             color: color,
             emoji: emoji,
-            schedule: schedule
+            schedule: schedule,
             isPinned: isPinned
         )
     }
@@ -130,11 +129,13 @@ final class TrackerStore: NSObject {
         }
     }
     
-    func updateTracker(_ tracker: Tracker, to category: TrackerCategory) throws {
+    func updateTracker(with tracker: Tracker, to category: TrackerCategory) throws {
         let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
         fetchRequest.predicate = NSPredicate(format: "idTracker == %@", tracker.id as CVarArg)
         do {
-            let existingTracker = existingTrackers.first {
+            let existingTrackers = try context.fetch(fetchRequest)
+            
+            if let existingTracker = existingTrackers.first {
                 existingTracker.idTracker = tracker.id
                 existingTracker.title = tracker.title
                 existingTracker.color = uiColorMarshalling.hexString(from: tracker.color)
@@ -146,7 +147,6 @@ final class TrackerStore: NSObject {
         }
     }
 }
-
 // MARK: - NSFetchedResultsControllerDelegate
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {

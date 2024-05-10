@@ -209,7 +209,7 @@ extension TrackerCategoryStore: TrackerCategoryStoreProtocol {
         guard let trackersSet = trackerCategoryCoreData.trackers as? Set<TrackerCoreData> else {
             throw TrackerCategoryStoreError.decodingErrorInvalidTrackers
         }
-        let trackerList = try trackerStore.compactMap { TrackerCoreData -> Tracker in
+        let trackerList = try trackersSet.compactMap { trackerCoreData -> Tracker in
             guard let tracker = try? trackerStore.fetchTracker(trackerCoreData) else {
                 throw TrackerCategoryStoreError.failedToInitializeTracker
             }

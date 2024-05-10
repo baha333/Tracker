@@ -90,7 +90,6 @@ final class TrackerCell: UICollectionViewCell {
     private var trackerCompletedDaysCount: Int = 0
     
     //MARK: - Actions
-    
     @objc private func trackButtonTapped() {
         guard let trackerID = trackerID, let indexPath = indexPath else {
             assertionFailure("no tracker id")
@@ -120,7 +119,7 @@ final class TrackerCell: UICollectionViewCell {
         
         let color = tracker.color
         addElements()
-        configureContentMenu()
+        configureContextMenu()
         setupConstraints()
         
         mainView.backgroundColor = color
@@ -148,8 +147,8 @@ final class TrackerCell: UICollectionViewCell {
         
         mainView.addSubview(emojiLabel)
         mainView.addSubview(taskTitleLabel)
-        mainView.addSubview(pinnedImage
-        )
+        mainView.addSubview(pinnedImage)
+        
         stackView.addSubview(counterDayLabel)
         stackView.addSubview(plusButton)
         
@@ -191,7 +190,7 @@ final class TrackerCell: UICollectionViewCell {
         ])
     }
     
-    private func updateCounterLabelText(completedDays: Int) {
+    private func updateCounterLabelText(completedDays: Int){
         counterDayLabel.text = formatDaysText(forDays: completedDays)
     }
     
@@ -213,7 +212,6 @@ extension TrackerCell: UIContextMenuInteractionDelegate {
         let pinTracker = NSLocalizedString("pinTracker.text", comment: "")
         
         let titleTextIsPinned = (self.tracker?.isPinned ?? false) ? unpinTracker : pinTracker
-        
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider:  { suggestedActions in
             
@@ -239,3 +237,4 @@ extension TrackerCell: UIContextMenuInteractionDelegate {
         })
     }
 }
+

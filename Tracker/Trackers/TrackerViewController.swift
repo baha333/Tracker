@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 13.03.2024.
-//
-
 import UIKit
 import CloudKit
 
@@ -158,7 +151,7 @@ final class TrackersViewController: UIViewController {
     private let trackerStore: TrackerStoreProtocol = TrackerStore.shared
     private let trackerCategoryStore: TrackerCategoryStoreProtocol = TrackerCategoryStore.shared
     private let trackerRecordStore: TrackerRecordStoreProtocol = TrackerRecordStore.shared
-    private let analysticsService = AnalyticsService.shared
+    private let analyticsService = AnalyticsService.shared
     
     //MARK: - Lifecycle
     
@@ -298,7 +291,7 @@ final class TrackersViewController: UIViewController {
             searchTextField.leadingAnchor.constraint(equalTo: searchStackView.leadingAnchor),
             noCancelConstraint,
             
-            cancelButton.trailingAnchor.constraint(equalTo: searchStackView.trailingAnchor)
+            cancelButton.trailingAnchor.constraint(equalTo: searchStackView.trailingAnchor),
             
             filterButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -311,7 +304,7 @@ final class TrackersViewController: UIViewController {
         let createTrackerVC = AddTrackerViewController()
         createTrackerVC.delegate = self
         let navVC = UINavigationController(rootViewController: createTrackerVC)
-        analysticsService.report(event: "click", params: ["screen" : "Main", "item" : "add_track"])
+        analyticsService.report(event: "click", params: ["screen" : "Main", "item" : "add_track"])
         present(navVC, animated: true)
     }
     
@@ -749,18 +742,18 @@ extension TrackersViewController: FiltersViewControllerDelegate {
         
         switch filter {
         case .all:
-            filterButton.setTitleColor(.White, for: .normal)
+            filterButton.setTitleColor(.ypWhite, for: .normal)
             
         case .today:
             datePicker.setDate(Date(), animated: false)
             currentDate = datePicker.date
-            filterButton.setTitleColor(.White, for: .normal)
+            filterButton.setTitleColor(.ypWhite, for: .normal)
             
         case .completed:
-            filterButton.setTitleColor(.White, for: .normal)
+            filterButton.setTitleColor(.ypWhite, for: .normal)
             
         case .uncompleted:
-            filterButton.setTitleColor(.White, for: .normal)
+            filterButton.setTitleColor(.ypWhite, for: .normal)
         }
         
         reloadFilteredCategories(text: searchTextField.text, date: currentDate)

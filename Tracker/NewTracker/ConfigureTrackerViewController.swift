@@ -1,6 +1,6 @@
 import UIKit
 
-// MARK: - TypeOfTracker
+//MARK: - TypeOfTracker
 
 enum TypeOfTracker {
     case habit
@@ -10,7 +10,7 @@ enum TypeOfTracker {
 
 protocol ConfigureTrackerViewControllerDelegate {
     func trackerDidSaved()
-    func updateTracker(tracker: Tracker. to category: TrackerCategory)
+    func updateTracker(tracker: Tracker, to category: TrackerCategory)
 }
 
 final class ConfigureTrackerViewController: UIViewController {
@@ -49,7 +49,7 @@ final class ConfigureTrackerViewController: UIViewController {
     private var switchStates: [Int: Bool] = [:]
     private var selectedTrackerCategory: TrackerCategory?
     private var category: String = ""
-    private let uiColorMarshaling = UIColorMarshalling()
+    private let uiColorMarshalling = UIColorMarshalling()
     private var isEditTrackerInited = false
     
     private lazy var textField: UITextField = {
@@ -174,7 +174,7 @@ final class ConfigureTrackerViewController: UIViewController {
         [textField,
          tableView,
          emojisAndColorsCollectionView,
-         stackView
+         stackView,
          completedDaysLabel
         ].forEach { scrollView.addSubview($0) }
         
@@ -332,7 +332,7 @@ final class ConfigureTrackerViewController: UIViewController {
                 scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                 
                 contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                contentView.topAnchor.constraint(equalTo: scrollView),
+                contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
                 contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -466,7 +466,6 @@ final class ConfigureTrackerViewController: UIViewController {
     }
 }
 
-
 // MARK: - UITableViewDataSource,Delegate
 
 extension ConfigureTrackerViewController: UITableViewDataSource {
@@ -521,7 +520,7 @@ extension ConfigureTrackerViewController: UITableViewDataSource {
             cell.titleLabel.text = titlesForTableView[indexPath.row]
             
             if selectedTrackerCategory == nil {
-                iff let editTracjer = editTracker {
+                if let editTracker = editTracker {
                     textField.text = editTracker.title
                     if let category = try? findCategoryByTracker(tracker: editTracker) {
                         self.selectedTrackerCategory = category
@@ -649,10 +648,10 @@ extension ConfigureTrackerViewController: UICollectionViewDataSource {
             let color = colors[indexPath.row]
             cell.titleLabel.backgroundColor = color
             
-            let cellColor = uiColorMarshaling.hexString(from: color)
+            let cellColor = uiColorMarshalling.hexString(from: color)
             
             if let editTrackerColor = editTracker?.color {
-                let selectedColor = uiColorMarshaling.hexString(from: editTrackerColor)
+                let selectedColor = uiColorMarshalling.hexString(from: editTrackerColor)
                 
                 if cellColor == selectedColor {
                     setColorHighlight(indexPath, collectionView, cell)
@@ -750,11 +749,12 @@ extension ConfigureTrackerViewController: UICollectionViewDelegateFlowLayout {
         default:
             return
         }
+        
         checkButtonActivation()
     }
     
     func setEmojiHighlight(_ indexPath: IndexPath, _ collectionView: UICollectionView, _ existsCell: EmojisAndColorsCell? = nil) {
-        guard let cell = exitsCell ?? collectionView.cellForItem(at: indexPath) as? EmojisAndColorsCell else { return }
+        guard let cell = existsCell ?? collectionView.cellForItem(at: indexPath) as? EmojisAndColorsCell else { return }
         cell.layer.cornerRadius = 16
         cell.layer.masksToBounds = true
         cell.backgroundColor = .ypLightGray
@@ -762,8 +762,8 @@ extension ConfigureTrackerViewController: UICollectionViewDelegateFlowLayout {
         selectedEmojiIndex = indexPath.row
     }
     
-    func setColorHighlight(_ indexPath: IndexPath, _ collectionView: UICollectionView, _ exitsCell: EmojisAndColorsCell? = nil) {
-        guard let cell = exitsCell ?? collectionView.cellForItem(at: indexPath) as? EmojisAndColorsCell else { return }
+    func setColorHighlight(_ indexPath: IndexPath, _ collectionView: UICollectionView, _ existsCell: EmojisAndColorsCell? = nil) {
+        guard let cell = existsCell ?? collectionView.cellForItem(at: indexPath) as? EmojisAndColorsCell else { return }
         cell.layer.cornerRadius = 8
         cell.layer.masksToBounds = true
         cell.layer.borderColor = colors[indexPath.row].cgColor.copy(alpha: 0.3)
@@ -774,8 +774,8 @@ extension ConfigureTrackerViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Core Data
-
 extension ConfigureTrackerViewController {
+    
     func findCategoryByTracker(tracker: Tracker) throws -> TrackerCategory? {
         try trackerCategoryStore.getCategories()
             .first(where: {category in

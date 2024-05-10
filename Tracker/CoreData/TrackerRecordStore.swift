@@ -71,7 +71,7 @@ final class TrackerRecordStore: NSObject {
             #keyPath(TrackerRecordCoreData.trackerID), trackerId as CVarArg
         )
         let objects = try context.fetch(request)
-        let records = objects.compactMap { object -> TrackerRecod? in
+        let records = objects.compactMap { object -> TrackerRecord? in
             guard let date = object.date, let id = object.trackerID else { return nil }
             return TrackerRecord(trackerID: id, date: date)
         }
