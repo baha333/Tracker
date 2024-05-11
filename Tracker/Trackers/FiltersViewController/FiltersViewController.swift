@@ -1,17 +1,14 @@
 import UIKit
 
 //MARK: - FiltersViewControllerDelegate
-
 protocol FiltersViewControllerDelegate: AnyObject {
     func filterSelected(filter: Filter)
 }
 
 // MARK: - FiltersViewController
-
 final class FiltersViewController: UIViewController {
     
     //MARK: - Properties
-    
     var selectedFilter: Filter?
     weak var delegate: FiltersViewControllerDelegate?
     
@@ -20,7 +17,7 @@ final class FiltersViewController: UIViewController {
     private lazy var filterLabel: UILabel = {
         let trackerLabel = UILabel()
         trackerLabel.text = NSLocalizedString("filters.title", comment: "")
-        trackerLabel.textColor = .ypBlack
+        trackerLabel.textColor = .Black
         trackerLabel.font = .systemFont(ofSize: 16, weight: .medium)
         trackerLabel.translatesAutoresizingMaskIntoConstraints = false
         return trackerLabel
@@ -31,17 +28,16 @@ final class FiltersViewController: UIViewController {
         tableView.layer.cornerRadius = 16
         tableView.layer.masksToBounds = true
         tableView.isScrollEnabled = false
-        tableView.backgroundColor = .ypWhite
+        tableView.backgroundColor = .White
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .ypGray
+        tableView.separatorColor = .Gray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addViews()
@@ -52,9 +48,8 @@ final class FiltersViewController: UIViewController {
     }
     
     //MARK: - Private methods
-    
     private func addViews() {
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         view.addSubview(filterLabel)
         view.addSubview(tableView)
     }
@@ -72,7 +67,6 @@ final class FiltersViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-
 extension FiltersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filters.count
@@ -86,14 +80,13 @@ extension FiltersViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let filter = filters[indexPath.row]
         cell.textLabel?.text = filter.rawValue
-        cell.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        cell.backgroundColor = .LightGray.withAlphaComponent(0.3)
         cell.accessoryType = filter == selectedFilter ? .checkmark : .none
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
-
 extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let previousSelectedCell = tableView.cellForRow(at: indexPath)

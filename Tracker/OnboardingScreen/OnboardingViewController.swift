@@ -29,7 +29,7 @@ final class OnboardingViewController: UIPageViewController {
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("onboardingDoneButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button

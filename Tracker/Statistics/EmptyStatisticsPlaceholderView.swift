@@ -2,7 +2,6 @@ import UIKit
 final class EmptyStatisticsPlaceholderView: UIView {
     
     //MARK: - Private Properties
-    
     private lazy var emptyScreenImage: UIImageView = {
         let launchScreenImage = UIImageView()
         launchScreenImage.image = UIImage(named: "ErrorSmile")
@@ -18,20 +17,20 @@ final class EmptyStatisticsPlaceholderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("emptyStatistics.text", comment: "")
         label.numberOfLines = 0
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textAlignment = NSTextAlignment.center
         return label
     }()
 
     //MARK: - Functions
-    
     func configureEmptyStatisticsPlaceholder() {
 
         addSubview(emptyStatisticsLabel)
         addSubview(emptyScreenImage)
         translatesAutoresizingMaskIntoConstraints = false
         
+
         NSLayoutConstraint.activate([
             emptyStatisticsLabel.topAnchor.constraint(equalTo: emptyScreenImage.bottomAnchor, constant: 8),
             emptyStatisticsLabel.leadingAnchor.constraint(equalTo: leadingAnchor),

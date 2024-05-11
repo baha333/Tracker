@@ -2,12 +2,10 @@ import Foundation
 
 typealias Binding<T> = (T) -> Void
 
-// MARK: - CategoryViewModel
-
+//MARK: - CategoryViewModel
 final class CategoryViewModel {
     
-    // MARK: - Properties
-    
+    //MARK: - Properties
     var onTrackerCategoriesChanged: Binding<Any?>?
     var onCategorySelected: Binding<TrackerCategory>?
     
@@ -25,7 +23,6 @@ final class CategoryViewModel {
     }
     
     // MARK: - Methods
-    
     func fetchCategories() throws {
         do {
             trackerCategories = try trackerCategoryStore.getCategories()
@@ -56,5 +53,4 @@ extension CategoryViewModel: TrackerCategoryStoreDelegate {
     func didUpdate(_ update: TrackerCategoryStoreUpdate) {
         try? fetchCategories()
     }
-} 
-
+}

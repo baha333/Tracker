@@ -1,20 +1,20 @@
 import UIKit
 
-// MARK: - TypeOfCategory
-
+//MARK: - TypeOfCategory
 enum TypeOfCategory {
     case create
     case edit
 }
 
-// MARK: - NewCategoryViewControllerDelegate
-
+//MARK: - NewCategoryViewControllerDelegate
 protocol NewCategoryViewControllerDelegate: AnyObject {
     func addNewCategories(category: String)
     func reloadCategories()
 }
 
+
 final class NewCategoryViewController: UIViewController {
+    
     
     weak var delegate: NewCategoryViewControllerDelegate?
     var editingCategoryName: String?
@@ -28,7 +28,7 @@ final class NewCategoryViewController: UIViewController {
     private let textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        textField.backgroundColor = .LightGray.withAlphaComponent(0.3)
         textField.layer.cornerRadius = 16
         textField.layer.masksToBounds = true
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -44,11 +44,11 @@ final class NewCategoryViewController: UIViewController {
     private let doneButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .Black
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("doneButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.White, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(pushDoneButton), for: .touchUpInside)
         return button
@@ -59,12 +59,12 @@ final class NewCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         setupNavBar()
         setupView()
         setupConstraints()
         doneButton.isEnabled = false
-        doneButton.backgroundColor = .ypGray
+        doneButton.backgroundColor = .Gray
     }
     
     // MARK: - Actions
@@ -111,6 +111,7 @@ final class NewCategoryViewController: UIViewController {
             doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -119,10 +120,10 @@ extension NewCategoryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text, !text.isEmpty {
             doneButton.isEnabled = true
-            doneButton.backgroundColor = .ypBlack
+            doneButton.backgroundColor = .Black
         } else {
             doneButton.isEnabled = false
-            doneButton.backgroundColor = .ypGray
+            doneButton.backgroundColor = .Gray
         }
         return true
     }
@@ -134,7 +135,6 @@ extension NewCategoryViewController: UITextFieldDelegate {
 }
 
 //MARK: - Extension
-
 @objc extension NewCategoryViewController {
     func didTapCreateCategoryButton() {
         if typeOfCategory == .create {
@@ -147,3 +147,4 @@ extension NewCategoryViewController: UITextFieldDelegate {
         dismiss(animated: true)
     }
 }
+

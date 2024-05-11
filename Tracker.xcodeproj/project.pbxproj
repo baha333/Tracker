@@ -39,7 +39,6 @@
 		AC6C2CFB2BDE735600992085 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6C2CFA2BDE735600992085 /* CategoryViewModel.swift */; };
 		AC8A27992BECB75100C09065 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC8A279B2BECB75100C09065 /* Localizable.strings */; };
 		AC8A279F2BECB83400C09065 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = AC8A27A12BECB83400C09065 /* Localizable.stringsdict */; };
-		AC8A27A52BED694D00C09065 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC8A27A72BED694D00C09065 /* InfoPlist.strings */; };
 		ACFA92DC2BA21691006344BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DB2BA21691006344BA /* AppDelegate.swift */; };
 		ACFA92DE2BA21691006344BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DD2BA21691006344BA /* SceneDelegate.swift */; };
 		ACFA92E02BA21691006344BA /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA92DF2BA21691006344BA /* TrackerViewController.swift */; };
@@ -113,8 +112,6 @@
 		AC8A279C2BECB78200C09065 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC8A27A02BECB83400C09065 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC8A27A22BECB83700C09065 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		AC8A27A62BED694D00C09065 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AC8A27A82BED695000C09065 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACFA92D82BA21691006344BA /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACFA92DB2BA21691006344BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACFA92DD2BA21691006344BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -311,7 +308,6 @@
 			children = (
 				AC8A279B2BECB75100C09065 /* Localizable.strings */,
 				AC8A27A12BECB83400C09065 /* Localizable.stringsdict */,
-				AC8A27A72BED694D00C09065 /* InfoPlist.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -340,10 +336,12 @@
 		ACFA92DA2BA21691006344BA /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				AC8A27962BECB2F100C09065 /* Resources */,
-				AC5022982BEADF3D002A861B /* AnaliticsService */,
-				AC6C2CF32BDE625000992085 /* OnboardingScreen */,
+				ACFA92DB2BA21691006344BA /* AppDelegate.swift */,
+				ACFA92DD2BA21691006344BA /* SceneDelegate.swift */,
 				AC6C2CF02BDE5FA100992085 /* Prefrences */,
+				AC5022982BEADF3D002A861B /* AnaliticsService */,
+				AC8A27962BECB2F100C09065 /* Resources */,
+				AC6C2CF32BDE625000992085 /* OnboardingScreen */,
 				AC2E4D462BD5437900FF042A /* NewTracker */,
 				AC2E4D3F2BD1099A00FF042A /* Statistics */,
 				AC2E4D3E2BD1067C00FF042A /* TabBar */,
@@ -352,8 +350,6 @@
 				ACFA932F2BA6EC80006344BA /* Schedule */,
 				ACFA931F2BA4A29C006344BA /* Helpers */,
 				ACFA93112BA49142006344BA /* Trackers */,
-				ACFA92DB2BA21691006344BA /* AppDelegate.swift */,
-				ACFA92DD2BA21691006344BA /* SceneDelegate.swift */,
 				ACFA92E42BA21694006344BA /* Assets.xcassets */,
 				ACFA92E62BA21694006344BA /* LaunchScreen.storyboard */,
 				ACFA92E92BA21694006344BA /* Info.plist */,
@@ -538,7 +534,6 @@
 				AC8A279F2BECB83400C09065 /* Localizable.stringsdict in Resources */,
 				AC8A27992BECB75100C09065 /* Localizable.strings in Resources */,
 				ACFA92E52BA21694006344BA /* Assets.xcassets in Resources */,
-				AC8A27A52BED694D00C09065 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,15 +699,6 @@
 				AC8A27A22BECB83700C09065 /* ru */,
 			);
 			name = Localizable.stringsdict;
-			sourceTree = "<group>";
-		};
-		AC8A27A72BED694D00C09065 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AC8A27A62BED694D00C09065 /* en */,
-				AC8A27A82BED695000C09065 /* ru */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		ACFA92E62BA21694006344BA /* LaunchScreen.storyboard */ = {

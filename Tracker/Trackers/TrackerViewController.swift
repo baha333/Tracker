@@ -10,7 +10,6 @@ final class TrackersViewController: UIViewController {
     var selectedFilter: Filter = .all
     
     //MARK: - Private Properties
-    
     private let headerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,14 +21,14 @@ final class TrackersViewController: UIViewController {
         button.setImage(UIImage(named: "AddTracker"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addTask), for: .touchUpInside)
-        button.tintColor = .ypBlack
+        button.tintColor = .Black
         return button
     }()
     
     private let titleHeader: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("trackers.title", comment: "")
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,8 +43,8 @@ final class TrackersViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.clipsToBounds = true
         picker.layer.cornerRadius = 8
-        picker.backgroundColor = .ypBackgroundDate
-        picker.tintColor = .ypBlue
+        picker.backgroundColor = .BackgroundDate
+        picker.tintColor = .Blue
         picker.contentHorizontalAlignment = .center
         picker.textColor = UIColor.BlackAnyAppearance
         
@@ -57,7 +56,7 @@ final class TrackersViewController: UIViewController {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.text = formattedDate(from: Date())
-        dateLabel.backgroundColor = .ypBackgroundDate
+        dateLabel.backgroundColor = .BackgroundDate
         dateLabel.textColor = .BlackAnyAppearance
         dateLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         dateLabel.textAlignment = NSTextAlignment.center
@@ -67,6 +66,7 @@ final class TrackersViewController: UIViewController {
         dateLabel.layer.masksToBounds = true
         return dateLabel
     }()
+    
     
     private let searchStackView: UIStackView = {
         let stack = UIStackView()
@@ -79,15 +79,15 @@ final class TrackersViewController: UIViewController {
     
     private lazy var searchTextField: UISearchTextField = {
         let textField = UISearchTextField()
-        textField.backgroundColor = .ypBackground
-        textField.textColor = .ypBlack
+        textField.backgroundColor = .Background
+        textField.textColor = .Black
         textField.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 8
         textField.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.ypGray
+            NSAttributedString.Key.foregroundColor: UIColor.Gray
         ]
         
         let attributedPlaceholder = NSAttributedString(
@@ -103,7 +103,7 @@ final class TrackersViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("cancelButton.text", comment: ""), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .ypBlue
+        button.tintColor = .Blue
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         button.widthAnchor.constraint(equalToConstant: 83).isActive = true
         button.isHidden = true
@@ -117,8 +117,8 @@ final class TrackersViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(textTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        button.setTitleColor(.ypWhite, for: .normal)
-        button.backgroundColor = .ypBlue
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .Blue
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
         return button
@@ -165,6 +165,7 @@ final class TrackersViewController: UIViewController {
         analyticsService.report(event: "close", params: ["screen" : "Main"])
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadData()
@@ -179,12 +180,14 @@ final class TrackersViewController: UIViewController {
         
         trackerStore.setDelegate(self)
         datePicker.setValue(UIColor.BlackAnyAppearance, forKeyPath: "textColor")
+        
     }
     
     
     //MARK: - Functions
+    
     private func configureView() {
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         searchTextField.returnKeyType = .done
     }
     
@@ -269,7 +272,7 @@ final class TrackersViewController: UIViewController {
             
             datePicker.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
             datePicker.centerYAnchor.constraint(equalTo: plusButton.centerYAnchor),
-            datePicker.widthAnchor.constraint(equalToConstant: 95),
+            datePicker.widthAnchor.constraint(equalToConstant: 77),
             datePicker.heightAnchor.constraint(equalToConstant: 34),
             
             searchStackView.topAnchor.constraint(equalTo: titleHeader.bottomAnchor, constant: 7),
@@ -318,6 +321,7 @@ final class TrackersViewController: UIViewController {
     
     @objc private func dateChanged() {
         currentDate = datePicker.date
+        
         if selectedFilter == .today {
             selectedFilter = .all
         }
@@ -372,6 +376,7 @@ final class TrackersViewController: UIViewController {
                 
                 return TrackerCategory(title: category.title, trackers: trackers)
             }
+            
         case .today:
             filteredCategories = categories.compactMap { category in
                 let trackers = category.trackers.filter { tracker in
@@ -390,6 +395,7 @@ final class TrackersViewController: UIViewController {
                 
                 return TrackerCategory(title: category.title, trackers: trackers)
             }
+            
         case .completed:
             filteredCategories = categories.compactMap { category in
                 let trackers = category.trackers.filter { tracker in
@@ -443,7 +449,6 @@ final class TrackersViewController: UIViewController {
             }
             
         default: break
-            
         }
         
         collectionView.reloadData()
@@ -582,7 +587,6 @@ extension TrackersViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 // MARK: - TrackersViewCellDelegate
-
 extension TrackersViewController: TrackerCellDelegate {
     
     func updateTrackerPinAction(tracker: Tracker) {
@@ -742,18 +746,18 @@ extension TrackersViewController: FiltersViewControllerDelegate {
         
         switch filter {
         case .all:
-            filterButton.setTitleColor(.ypWhite, for: .normal)
+            filterButton.setTitleColor(.White, for: .normal)
             
         case .today:
             datePicker.setDate(Date(), animated: false)
             currentDate = datePicker.date
-            filterButton.setTitleColor(.ypWhite, for: .normal)
+            filterButton.setTitleColor(.White, for: .normal)
             
         case .completed:
-            filterButton.setTitleColor(.ypWhite, for: .normal)
+            filterButton.setTitleColor(.White, for: .normal)
             
         case .uncompleted:
-            filterButton.setTitleColor(.ypWhite, for: .normal)
+            filterButton.setTitleColor(.White, for: .normal)
         }
         
         reloadFilteredCategories(text: searchTextField.text, date: currentDate)
@@ -814,3 +818,4 @@ extension TrackersViewController: ConfigureTrackerViewControllerDelegate {
         reloadFilteredCategories(text: searchTextField.text, date: currentDate)
     }
 }
+

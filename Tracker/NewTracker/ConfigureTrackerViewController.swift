@@ -1,7 +1,6 @@
 import UIKit
 
 //MARK: - TypeOfTracker
-
 enum TypeOfTracker {
     case habit
     case irregularEvent
@@ -17,9 +16,11 @@ final class ConfigureTrackerViewController: UIViewController {
     
     //MARK: - Properties
     
+    
     var delegate: ConfigureTrackerViewControllerDelegate?
     
     let titlesForTableView = [NSLocalizedString("category.title", comment: ""),NSLocalizedString("schedule.title", comment: "")]
+    
     
     var emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
@@ -27,12 +28,12 @@ final class ConfigureTrackerViewController: UIViewController {
         "🥦", "🏓", "🥇", "🎸", "🏝", "😪"
     ]
     var colors: [UIColor] = [
-        .color1, .color2, .color3,
-        .color4, .color5, .color6,
-        .color7, .color8, .color9,
-        .color10, .color11, .color12,
-        .color13, .color14, .color15,
-        .color16, .color17, .color18
+        .ColorSelection1, .ColorSelection2, .ColorSelection3,
+        .ColorSelection4, .ColorSelection5, .ColorSelection6,
+        .ColorSelection7, .ColorSelection8, .ColorSelection9,
+        .ColorSelection10, .ColorSelection11, .ColorSelection12,
+        .ColorSelection13, .ColorSelection14, .ColorSelection15,
+        .ColorSelection16, .ColorSelection17, .ColorSelection18
     ]
     
     var selectedEmoji: String?
@@ -55,7 +56,7 @@ final class ConfigureTrackerViewController: UIViewController {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        textField.backgroundColor = .LightGray.withAlphaComponent(0.3)
         textField.layer.cornerRadius = 16
         textField.layer.masksToBounds = true
         textField.font = UIFont.systemFont(ofSize: 17)
@@ -75,7 +76,7 @@ final class ConfigureTrackerViewController: UIViewController {
         tableView.layer.masksToBounds = true
         tableView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .ypGray
+        tableView.separatorColor = .Gray
         tableView.register(
             ActivityTableCell.self,
             forCellReuseIdentifier: ActivityTableCell.reuseIdentifier
@@ -98,10 +99,10 @@ final class ConfigureTrackerViewController: UIViewController {
         cancelButton.layer.cornerRadius = 16
         cancelButton.layer.masksToBounds = true
         cancelButton.setTitle(NSLocalizedString("cancelButton.text", comment: ""), for: .normal)
-        cancelButton.setTitleColor(.ypRed, for: .normal)
+        cancelButton.setTitleColor(.Red, for: .normal)
         cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = UIColor.ypRed.cgColor
+        cancelButton.layer.borderColor = UIColor.Red.cgColor
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return cancelButton
     }()
@@ -111,7 +112,8 @@ final class ConfigureTrackerViewController: UIViewController {
         createButton.translatesAutoresizingMaskIntoConstraints = false
         createButton.layer.cornerRadius = 16
         createButton.layer.masksToBounds = true
-        createButton.setTitleColor(.ypWhite, for: .normal)
+        //        createButton.setTitle(NSLocalizedString("createButton.text", comment: ""), for: .normal)
+        createButton.setTitleColor(.White, for: .normal)
         createButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         return createButton
@@ -123,7 +125,7 @@ final class ConfigureTrackerViewController: UIViewController {
             collectionViewLayout: UICollectionViewFlowLayout()
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .ypWhite
+        collectionView.backgroundColor = .White
         collectionView.isScrollEnabled = false
         collectionView.register(EmojisAndColorsCell.self, forCellWithReuseIdentifier: EmojisAndColorsCell.reuseIdentifier)
         collectionView.register(EmojisAndColorsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojisAndColorsHeaderView.reuseIdentifier)
@@ -168,7 +170,7 @@ final class ConfigureTrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         [textField,
@@ -322,6 +324,7 @@ final class ConfigureTrackerViewController: UIViewController {
                 stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
                 stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -24)
+                
             ])
             
         case .edit:
@@ -391,9 +394,9 @@ final class ConfigureTrackerViewController: UIViewController {
         createButton.isEnabled = isAvailable
         
         if isAvailable {
-            createButton.backgroundColor = .ypBlack
+            createButton.backgroundColor = .Black
         } else {
-            createButton.backgroundColor = .ypGray
+            createButton.backgroundColor = .Gray
         }
     }
     
@@ -451,7 +454,7 @@ final class ConfigureTrackerViewController: UIViewController {
         let newTracker = Tracker(
             id: editTracker.id,
             title: trackerName,
-            color: selectedColor ?? UIColor.color1,
+            color: selectedColor ?? UIColor.ColorSelection1,
             emoji: selectedEmoji ?? "",
             schedule: selectedSchedule,
             isPinned: editTracker.isPinned)
@@ -463,6 +466,7 @@ final class ConfigureTrackerViewController: UIViewController {
     
     private func formatDaysText(forDays days: Int) -> String {
         String.localizedStringWithFormat(NSLocalizedString("numberOfDays", comment: "numberOfDays"), days)
+        
     }
 }
 
@@ -496,7 +500,7 @@ extension ConfigureTrackerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ActivityTableCell.reuseIdentifier, for: indexPath) as? ActivityTableCell else { return UITableViewCell() }
         cell.accessoryType = .disclosureIndicator
-        cell.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        cell.backgroundColor = .LightGray.withAlphaComponent(0.3)
         if indexPath.row == 0 {
             switch typeOfTracker {
             case .habit:
@@ -565,6 +569,7 @@ extension ConfigureTrackerViewController: UITableViewDelegate {
             let categoryViewController = CategoryViewController()
             categoryViewController.delegate = self
             navigationController?.pushViewController(categoryViewController, animated: true)
+            
         } else if indexPath.row == 1 {
             let scheduleViewController = ScheduleViewController()
             scheduleViewController.delegate = self
@@ -643,6 +648,7 @@ extension ConfigureTrackerViewController: UICollectionViewDataSource {
             if emoji == selectedEmoji {
                 setEmojiHighlight(indexPath, collectionView, cell)
             }
+            
             
         case CollectionViewSections.colorSection.rawValue:
             let color = colors[indexPath.row]
@@ -757,7 +763,7 @@ extension ConfigureTrackerViewController: UICollectionViewDelegateFlowLayout {
         guard let cell = existsCell ?? collectionView.cellForItem(at: indexPath) as? EmojisAndColorsCell else { return }
         cell.layer.cornerRadius = 16
         cell.layer.masksToBounds = true
-        cell.backgroundColor = .ypLightGray
+        cell.backgroundColor = .LightGray
         selectedEmoji = emojis[indexPath.row]
         selectedEmojiIndex = indexPath.row
     }

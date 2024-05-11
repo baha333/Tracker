@@ -38,7 +38,7 @@ final class ActivityTableCell: UITableViewCell {
         if let subText = subText {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 2
-            let subTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.ypGray]
+            let subTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.Gray]
             let subAttributedString = NSMutableAttributedString(string: subText, attributes: subTextAttributes)
             subAttributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: subAttributedString.length))
             

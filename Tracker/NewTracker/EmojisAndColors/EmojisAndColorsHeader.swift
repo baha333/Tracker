@@ -8,7 +8,7 @@ final class EmojisAndColorsHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.textAlignment = .left
         return label
     }()

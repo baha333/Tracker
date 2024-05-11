@@ -7,7 +7,6 @@ private enum TrackerRecordStoreError: Error {
 }
 
 // MARK: - TrackerRecordStoreProtocol
-
 protocol TrackerRecordStoreProtocol {
     func recordsFetch(for tracker: Tracker) throws -> [TrackerRecord]
     func addRecord(with id: UUID, by date: Date) throws
@@ -15,14 +14,12 @@ protocol TrackerRecordStoreProtocol {
     func deleteAllRecordForID(for id: UUID) throws
 }
 
-// MARK: - TrackerRecordStoreDelegate
-
+//MARK: - TrackerRecordStoreDelegate
 protocol TrackerRecordStoreDelegate: AnyObject {
     func didUpdateData(in store: TrackerRecordStore)
 }
 
 // MARK: - TrackerRecordStore
-
 final class TrackerRecordStore: NSObject {
     
     static let shared = TrackerRecordStore()
@@ -153,7 +150,6 @@ final class TrackerRecordStore: NSObject {
 }
 
 // MARK: - TrackerRecordStoreProtocol
-
 extension TrackerRecordStore: TrackerRecordStoreProtocol {
     
     func recordsFetch(for tracker: Tracker) throws -> [TrackerRecord] {
@@ -163,16 +159,20 @@ extension TrackerRecordStore: TrackerRecordStoreProtocol {
     func addRecord(with id: UUID, by date: Date) throws {
         guard let onlyDate = date.onlyDate else {
             print("Failed: addRecord")
+            
             return
         }
+        
         try createNewRecord(id: id, date: onlyDate)
     }
     
     func deleteRecord(with id: UUID, by date: Date) throws {
         guard let onlyDate = date.onlyDate else {
             print("Failed: deleteRecord")
+            
             return
         }
+        
         try removeRecord(idTracker: id, date: onlyDate)
     }
     

@@ -1,10 +1,3 @@
-//
-//  EmptySearchPlaceholderView.swift
-//  Tracker
-//
-//  Created by Bakhadir on 21.04.2024.
-//
-
 import UIKit
 
 final class EmptySearchPlaceholderView: UIView {
@@ -25,7 +18,7 @@ final class EmptySearchPlaceholderView: UIView {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = NSLocalizedString("emptySearch.text", comment: "")
         textLabel.numberOfLines = 0
-        textLabel.textColor = .ypBlack
+        textLabel.textColor = .Black
         textLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         textLabel.textAlignment = NSTextAlignment.center
        return textLabel

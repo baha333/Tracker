@@ -1,5 +1,6 @@
 import UIKit
 
+
 struct Statistics {
     var title: String
     var count: String
@@ -15,7 +16,7 @@ final class StatisticsViewController: UIViewController {
     private lazy var titleHeader: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("statistics.title", comment: "")
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,6 +36,7 @@ final class StatisticsViewController: UIViewController {
     }()
     
     private let emptyStatisticsPlaceholderView = EmptyStatisticsPlaceholderView()
+    
     
     //MARK: - Lifecycle
     
@@ -87,7 +89,7 @@ final class StatisticsViewController: UIViewController {
     }
     
     private func configureStatisticScreen() {
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         addViews()
         setupConstraints()
     }

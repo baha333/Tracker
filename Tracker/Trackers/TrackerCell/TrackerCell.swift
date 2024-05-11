@@ -1,7 +1,6 @@
 import UIKit
 
 //MARK: - Protocol
-
 protocol TrackerCellDelegate: AnyObject {
     func completedTracker(id: UUID, at indexPath: IndexPath)
     func uncompletedTracker(id: UUID, at indexPath: IndexPath)
@@ -29,7 +28,7 @@ final class TrackerCell: UICollectionViewCell {
     
     private let emojiLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .ypWhite.withAlphaComponent(0.3)
+        label.backgroundColor = .white.withAlphaComponent(0.3)
         label.clipsToBounds = true
         label.layer.cornerRadius = 24 / 2
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -40,7 +39,7 @@ final class TrackerCell: UICollectionViewCell {
     
     private let taskTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .ypWhite
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +57,7 @@ final class TrackerCell: UICollectionViewCell {
     
     private let counterDayLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -68,7 +67,7 @@ final class TrackerCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "plus", withConfiguration: pointSize)
         button.setImage(image, for: .normal)
-        button.tintColor = .ypWhite
+        button.tintColor = .White
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 34 / 2
         button.addTarget(self, action: #selector(trackButtonTapped), for: .touchUpInside)
@@ -203,6 +202,7 @@ final class TrackerCell: UICollectionViewCell {
         let contextMenu = UIContextMenuInteraction(delegate: self)
         mainView.addInteraction(contextMenu)
     }
+    
 }
 
 extension TrackerCell: UIContextMenuInteractionDelegate {
@@ -213,26 +213,27 @@ extension TrackerCell: UIContextMenuInteractionDelegate {
         
         let titleTextIsPinned = (self.tracker?.isPinned ?? false) ? unpinTracker : pinTracker
         
+
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider:  { suggestedActions in
-            
+
             let pinAction = UIAction(title: titleTextIsPinned) { action in
                 guard let tracker = self.tracker else { return }
                 
                 self.delegate?.updateTrackerPinAction(tracker: tracker)
             }
-            
+
             let editAction = UIAction(title: "Редактировать") { action in
                 guard let tracker = self.tracker else { return }
                 
                 self.delegate?.editTrackerAction(tracker: tracker)
             }
-            
+
             let deleteAction = UIAction(title: "Удалить", attributes: .destructive) { action in
                 guard let tracker = self.tracker else { return }
                 
                 self.delegate?.deleteTrackerAction(tracker: tracker)
             }
-            
+
             return UIMenu(children: [pinAction, editAction, deleteAction])
         })
     }

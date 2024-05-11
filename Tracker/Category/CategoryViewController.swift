@@ -6,7 +6,7 @@ protocol CategoryViewControllerDelegate {
 
 final class CategoryViewController: UIViewController {
     
-    // MARK: - Properties
+    //MARK: - Properties
     var delegate: CategoryViewControllerDelegate?
     var viewModel: CategoryViewModel
     
@@ -25,7 +25,7 @@ final class CategoryViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("emptyStateCategory.text", comment: "")
         label.numberOfLines = 0
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textAlignment = NSTextAlignment.center
         return label
@@ -34,11 +34,11 @@ final class CategoryViewController: UIViewController {
     private let addCategoryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .Black
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("addCategoryButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.White, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(pushAddCategoryButton), for: .touchUpInside)
         return button
@@ -51,16 +51,15 @@ final class CategoryViewController: UIViewController {
         tableView.layer.masksToBounds = true
         tableView.separatorStyle = .singleLine
         tableView.tableHeaderView = UIView()
-        tableView.separatorColor = .ypGray
+        tableView.separatorColor = .gray
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
         return tableView
     }()
     
-    // MARK: - UIViewController Lifecycle
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         setupNavBar()
         addViews()
         setupConstraints()
@@ -80,11 +79,11 @@ final class CategoryViewController: UIViewController {
             self?.delegate?.didSelectCategory(category)
             self?.navigationController?.popViewController(animated: true)
         }
+        
         try? viewModel.fetchCategories()
     }
     
-    // MARK: - Init
-    
+    //MARK: - Init
     init() {
         viewModel = CategoryViewModel()
         super.init(nibName: nil, bundle: nil)
@@ -102,8 +101,7 @@ final class CategoryViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    // MARK: - Private Functions
-    
+    // MARK: - Private functions
     private func setupNavBar() {
         navigationItem.hidesBackButton = true
         navigationItem.title = NSLocalizedString("category.title", comment: "")
@@ -163,20 +161,21 @@ final class CategoryViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
-
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.countCategories()
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: CategoryTableViewCell.reuseIdentifier,
+            for: indexPath)
         guard cell is CategoryTableViewCell else {
             return UITableViewCell()
         }
+        
         cell.textLabel?.text = viewModel.getCategoryTitle(at: indexPath)
-        cell.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        cell.backgroundColor = .LightGray.withAlphaComponent(0.3)
         cell.separatorInset = UIEdgeInsets( top: 0, left: 16, bottom: 0, right: 16 )
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 16.0
@@ -221,4 +220,5 @@ extension CategoryViewController: UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         }
     }
+    
 }

@@ -14,7 +14,7 @@ final class CategoryTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Initializers
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -36,3 +36,4 @@ final class CategoryTableViewCell: UITableViewCell {
         ])
     }
 }
+

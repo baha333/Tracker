@@ -24,7 +24,7 @@ final class ScheduleViewController: UIViewController {
         tableView.layer.masksToBounds = true
         tableView.separatorStyle = .singleLine
         tableView.tableHeaderView = UIView()
-        tableView.separatorColor = .ypGray
+        tableView.separatorColor = .Gray
         tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
         return tableView
     }()
@@ -32,11 +32,11 @@ final class ScheduleViewController: UIViewController {
     private let doneButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .Black
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("doneButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.White, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
@@ -47,7 +47,7 @@ final class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
         navigationItem.hidesBackButton = true
         setupNavBar()
         setupView()
@@ -122,11 +122,11 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier, for: indexPath) as? ScheduleCell else { return UITableViewCell()}
-        cell.backgroundColor = .ypLightGray.withAlphaComponent(0.3)
+        cell.backgroundColor = .LightGray.withAlphaComponent(0.3)
         cell.textLabel?.text = Weekday.allCases[indexPath.row].value
         let switchButton = UISwitch(frame: .zero)
         switchButton.setOn(switchStates[indexPath.row] ?? false, animated: true)
-        switchButton.onTintColor = .ypBlue
+        switchButton.onTintColor = .Blue
         switchButton.tag = indexPath.row
         cell.accessoryView = switchButton
         cell.selectionStyle = .none

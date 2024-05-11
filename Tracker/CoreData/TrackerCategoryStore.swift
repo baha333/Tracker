@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 
+
 struct TrackerCategoryStoreUpdate {
     let insertedIndexPaths: [IndexPath]
     let deletedIndexPaths: [IndexPath]
@@ -12,6 +13,7 @@ private enum TrackerCategoryStoreError: Error {
     case failedToInitializeTracker
     case failedToFetchCategory
 }
+
 
 // MARK: - Protocols
 

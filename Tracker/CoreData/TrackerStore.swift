@@ -210,6 +210,7 @@ extension TrackerStore: TrackerStoreProtocol {
     func pinTrackerCoreData(_ tracker: Tracker) throws {
         let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
         fetchRequest.predicate = NSPredicate(format: "idTracker == %@", tracker.id as CVarArg)
+        
         do {
             guard let trackerCoreData = try? context.fetch(fetchRequest) else { return }
             if let trackerToPin = trackerCoreData.first {

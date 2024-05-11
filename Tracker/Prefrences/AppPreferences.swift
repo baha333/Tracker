@@ -16,7 +16,6 @@ class AppPreferences: AppPreferencesProtocol {
     private let defaults = UserDefaults.standard
     
     private init() {
-        
     }
     
     func isNeedShowOnboarding() -> Bool {

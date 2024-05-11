@@ -2,14 +2,13 @@ import UIKit
 
 final class StatisticsCell: UICollectionViewCell {
     
-    // MARK: - Properties
-    
+    //MARK: - Properties
     static let identifier = "StatisticsCell"
     
     private lazy var countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.textAlignment = .left
         return label
     }()
@@ -17,13 +16,12 @@ final class StatisticsCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .ypBlack
+        label.textColor = .Black
         label.textAlignment = .left
         return label
     }()
     
     // MARK: - Init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
@@ -34,14 +32,12 @@ final class StatisticsCell: UICollectionViewCell {
     }
     
     //MARK: - Methods
-    
     func configureCell(statistics: Statistics) {
         countLabel.text = statistics.count
         titleLabel.text = statistics.title
     }
     
     //MARK: - Private methods
-    
     private func setupCell() {
         addViews()
         setupConstraints()
@@ -90,3 +86,4 @@ final class StatisticsCell: UICollectionViewCell {
         ])
     }
 }
+

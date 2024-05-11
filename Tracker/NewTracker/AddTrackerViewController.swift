@@ -7,18 +7,18 @@ protocol AddTrackerViewControllerDelegate: AnyObject {
 final class AddTrackerViewController: UIViewController {
     
     var screenTitle: String = ""
-    weak var delegate: AddTrackerViewControllerDelegate?
+    var delegate: AddTrackerViewControllerDelegate?
         
     //MARK: - Private Properties
 
     private let habitButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .Black
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("habitButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.White, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return button
     }()
@@ -26,11 +26,11 @@ final class AddTrackerViewController: UIViewController {
     private let irregularButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .Black
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle(NSLocalizedString("irregularButton.text", comment: ""), for: .normal)
-        button.setTitleColor(.ypWhite, for: .normal)
+        button.setTitleColor(.White, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return button
     }()
@@ -51,7 +51,7 @@ final class AddTrackerViewController: UIViewController {
         setupNavBar()
         setupConstraints()
         setupButtons()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .White
     }
     
      //MARK: - Actions
@@ -102,8 +102,9 @@ final class AddTrackerViewController: UIViewController {
 
 extension AddTrackerViewController: ConfigureTrackerViewControllerDelegate {
     func updateTracker(tracker: Tracker, to category: TrackerCategory) {
-        
+        //.
     }
+    
     func trackerDidSaved() {
         dismiss(animated: true, completion: { self.delegate?.trackerDidCreate() })
     }
