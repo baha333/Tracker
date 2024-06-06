@@ -1,0 +1,78 @@
+/*
+Localizable.strings
+Tracker
+
+Created by Mariya on 02.06.2024.
+
+*/
+"trackers.title" = "Trackers";
+"statistics.title" = "Statistics";
+"stubLabel.text" = "What will we track?";
+"notFoundLabel.text" = "Nothing found";
+"searchTrackerTextField.placeholder" = "Search";
+"buttonFilters.title" = "Filters";
+"pin" = "Pin";
+"unpin" = "Unpin";
+
+"delete.confirmation" = "Are you sure you want to delete the tracker?";
+"delete" = "Delete";
+"cancel" = "Cancel";
+"edit" = "Edit";
+
+"createTrackers.title" = "Creating a tracker";
+"buttonНabit.title" = "Habit";
+"buttonEvent.title" = "One-time event";
+
+"createTrackers.placeholder" = "Enter tracker name";
+"restrictiveLabel" = "Limit 38 characters";
+"create" = "Create";
+"colorLabel" = "Color";
+
+
+"newEvent.title" = "New one-time event";
+"newHabit.title" = "New habit";
+"editingTracker.title" = "Editing a habit";
+"detailsText" = "Every day";
+
+"categoryTitle" = "Category";
+"scheduleTitle" = "Schedule";
+"newCategory" = "New category";
+"editingCategory.title" = "Editing a category";
+"inputCategory.placeholder" = "Enter category name";
+
+"categoryStubLabel" = "Habits and events can be combined by meaning";
+"buttonAddCategory" = "Add category";
+"readyButton.Title" = "Ready";
+
+"day0" = "days";
+"day1" = "day";
+"day2" = "days";
+"days" = "days";
+
+"allTrackers" = "All trackers";
+"todayTrackers" = "Trackers for today";
+"completedTrackers" = "Completed";
+"unCompletedTrackers" = "Not completed";
+
+"statisticsStubLabel.text" = "There is nothing to analyze yet";
+"bestPeriodTextLabel" = "Best period";
+"idealDaysTextLabel" = "Ideal days";
+"trackersCompletedTextLabel" = "Trackers completed";
+"averageValueTextLabel" = "Average value";
+
+"Monday" = "Monday";
+"Tuesday" = "Tuesday";
+"Wednesday" = "Wednesday";
+"Thursday" = "Thursday";
+"Friday" = "Friday";
+"Saturday" = "Saturday";
+"Sunday" = "Sunday";
+
+"Mon" = "Mon";
+"Tue" = "Tue";
+"Wed" = "Wed";
+"Thu" = "Thu";
+"Fri" = "Fri";
+"Sat" = "Sat";
+"Sun" = "Sun";
+

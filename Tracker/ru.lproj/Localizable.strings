@@ -1,0 +1,77 @@
+/*
+Localizable.strings
+Tracker
+
+Created by Mariya on 02.06.2024.
+
+*/
+"trackers.title" = "Трекеры";
+"statistics.title" = "Статистика";
+"stubLabel.text" = "Что будем отслеживать?";
+"notFoundLabel.text" = "Ничего не найдено";
+"searchTrackerTextField.placeholder" = "Поиск";
+"buttonFilters.title" = "Фильтры";
+"pin" = "Закрепить";
+"unpin" = "Открепить";
+
+"delete.confirmation" = "Уверены что хотите удалить трекер?";
+"delete" = "Удалить";
+"cancel" = "Отменить";
+"edit" = "Редактировать";
+
+"createTrackers.title" = "Создание трекера";
+"buttonНabit.title" = "Привычка";
+"buttonEvent.title" = "Нерегулярные событие";
+
+"createTrackers.placeholder" = "Введите название трекера";
+"restrictiveLabel" = "Ограничение 38 символов";
+"Create" = "Создать";
+"colorLabel" = "Цвет";
+
+"newEvent.title" = "Новое нерегулярное событие";
+"newHabit.title" = "Новая привычка";
+"editingTracker.title" = "Редактирование привычки";
+"detailsText" = "Каждый день";
+
+"categoryTitle" = "Категория";
+"scheduleTitle" = "Расписание";
+"newCategory" = "Новая категория";
+"editingCategory.title" = "Редактирование категории";
+"inputCategory.placeholder" = "Введите название категории";
+
+"categoryStubLabel" = "Привычки и события можно объединить по смыслу";
+"buttonAddCategory" = "Добавить категорию";
+"readyButton.Title" = "Готово";
+
+"day0" = "день";
+"day1" = "день";
+"day2" = "дня";
+"days" = "дней";
+
+"allTrackers" = "Все трекеры";
+"todayTrackers" = "Трекеры на сегодня";
+"completedTrackers" = "Завершенные";
+"unCompletedTrackers" = "Не завершенные";
+
+"statisticsStubLabel.text" = "Анализировать пока нечего";
+"bestPeriodTextLabel" = "Лучший период";
+"idealDaysTextLabel" = "Идеальные дни";
+"trackersCompletedTextLabel" = "Трекеров завершено";
+"averageValueTextLabel" = "Среднее значениe";
+
+"Monday" = "Понедельник";
+"Tuesday" = "Вторник";
+"Wednesday" = "Среда";
+"Thursday" = "Четверг";
+"Friday" = "Пятница";
+"Saturday" = "Суббота";
+"Sunday" = "Воскресенье";
+
+
+"Mon" = "Пн";
+"Tue" = "Вт";
+"Wed" = "Ср";
+"Thu" = "Чт";
+"Fri" = "Пт";
+"Sat" = "Сб";
+"Sun" = "Вс";
