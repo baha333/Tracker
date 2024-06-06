@@ -1,43 +1,37 @@
-//
-//  TabBarController.swift
-//  Tracker
-//
-//  Created by Bakhadir on 16.03.2024.
-//
-
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
-    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSeparator()
-        generateTabBar()
-    }
+        self.tabBar.layer.borderWidth = 0.5
+        self.tabBar.layer.borderColor = traitCollection.userInterfaceStyle == .light ? UIColor.ypGray.cgColor : UIColor.black.cgColor
+        UITabBar.appearance().tintColor = .ypBlue
+        UITabBar.appearance().unselectedItemTintColor = .ypGray
+        let normalColor = UIColor.ypGray
+        let selectedColor = UIColor.ypBlue
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: normalColor], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
     
-    //MARK: - Private Functions
-    private func addSeparator() {
-        let separator = UIView(frame: CGRect(x: 0, y: 0, width: tabBar.frame.width, height: 1))
-        separator.backgroundColor = .ypGray
-        tabBar.addSubview(separator)
+        self.viewControllers = [setTrackersViewController(), setStatisticsViewController()]
     }
-    
-    private func generateTabBar() {
+
+    func setTrackersViewController() -> UINavigationController {
         let trackersViewController = TrackersViewController()
         trackersViewController.tabBarItem = UITabBarItem(
-            title: "Трекеры",
-            image: UIImage(named: "Trackers"),
-            selectedImage: nil
-        )
-        
+            title: "trackers.title".localized,
+            image: UIImage(named: "tab_trackers"),
+            selectedImage: nil)
+        return UINavigationController(rootViewController: trackersViewController)
+    }
+
+    func setStatisticsViewController() -> UINavigationController {
         let statisticsViewController = StatisticsViewController()
         statisticsViewController.tabBarItem = UITabBarItem(
-            title: "Статистика",
-            image: UIImage(named: "Statistics"),
-            selectedImage: nil
-        )
-        
-        viewControllers = [trackersViewController, statisticsViewController]
+            title: "statistics.title".localized,
+            image:  UIImage(named: "tab_statistics"),
+            selectedImage: nil)
+       
+        return UINavigationController(rootViewController: statisticsViewController)
     }
 }
+
